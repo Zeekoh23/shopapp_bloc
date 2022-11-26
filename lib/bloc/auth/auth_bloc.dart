@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 
 import '../bloc_exports.dart';
-import '../../helpers/api/api_read.dart';
+import '../../helpers/api/auth_api.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final ApiRead authApi;
+  final AuthApi authApi;
   AuthBloc({required this.authApi}) : super(AuthLoading()) {
     on<AppStarted>(_appStarted);
     on<LoggedIn>(_loggedIn);

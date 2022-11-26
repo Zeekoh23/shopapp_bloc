@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../widgets/auth_card.dart';
 
-import '../helpers/api/api_read.dart';
+import '../helpers/api/auth_api.dart';
 import '../bloc/bloc_exports.dart';
 
 enum AuthMode { Signup, Login }
@@ -15,7 +15,7 @@ class AuthScreen extends StatelessWidget {
     required this.authApi,
     Key? key,
   }) : super(key: key);
-  final ApiRead authApi;
+  final AuthApi authApi;
 
   static const routeName = '/auth';
 
@@ -28,7 +28,7 @@ class AuthScreen extends StatelessWidget {
     return Scaffold(
       body: BlocProvider(
         create: (context) {
-          return LoginBloc(
+          return SignupLoginBloc(
             authApi: authApi,
             authBloc: BlocProvider.of<AuthBloc>(context),
           );

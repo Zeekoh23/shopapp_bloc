@@ -4,7 +4,7 @@ import '../screens/auth_screen.dart';
 
 import '../models/http_exception.dart';
 import '../models/auth.dart';
-import '../helpers/api/api_read.dart';
+import '../helpers/api/auth_api.dart';
 import '../bloc/bloc_exports.dart';
 
 class AuthCard extends StatefulWidget {
@@ -12,7 +12,7 @@ class AuthCard extends StatefulWidget {
     Key? key,
     required this.authApi,
   }) : super(key: key);
-  final ApiRead authApi;
+  final AuthApi authApi;
 
   @override
   _AuthCardState createState() => _AuthCardState(authApi);
@@ -20,7 +20,7 @@ class AuthCard extends StatefulWidget {
 
 class _AuthCardState extends State<AuthCard>
     with SingleTickerProviderStateMixin {
-  final ApiRead authApi;
+  final AuthApi authApi;
   _AuthCardState(this.authApi);
 
   final GlobalKey<FormState> _formKey = GlobalKey();
@@ -106,25 +106,35 @@ class _AuthCardState extends State<AuthCard>
     }
   }
 
-  void _loginPost() {
-    BlocProvider.of<LoginBloc>(context).add(
-      LoginPost(
-        email: _emailController.text,
-        password: _passwordController.text,
-      ),
-    );
+  void _authPost() {
+    if (_authMode == AuthMode.Login) {
+      BlocProvider.of<SignupLoginBloc>(context).add(
+        LoginPost(
+          email: _emailController.text,
+          password: _passwordController.text,
+        ),
+      );
+    } else {
+      BlocProvider.of<SignupLoginBloc>(context).add(
+        SignupPost(
+          email: _emailController.text,
+          password: _passwordController.text,
+          passwordConfirm: _passwordConfirmController.text,
+        ),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
-    return BlocListener<LoginBloc, LoginState>(
+    return BlocListener<SignupLoginBloc, SignupLoginState>(
       listener: (context, state) {
-        if (state is LoginFailure) {
+        if (state is SignupLoginFailure) {
           _showErrorDialog(state.error);
         }
       },
-      child: BlocBuilder<LoginBloc, LoginState>(
+      child: BlocBuilder<SignupLoginBloc, SignupLoginState>(
         builder: (context, state) {
           return Card(
             shape: RoundedRectangleBorder(
@@ -181,7 +191,7 @@ class _AuthCardState extends State<AuthCard>
                           onFieldSubmitted: (_) {
                             if (_authMode == AuthMode.Login) {
                               // _submit();
-                              _loginPost();
+                              _authPost();
                             }
                           }),
                       AnimatedContainer(
@@ -227,11 +237,11 @@ class _AuthCardState extends State<AuthCard>
                       const SizedBox(
                         height: 20,
                       ),
-                      if (state is LoginLoading) ...[
+                      if (state is SignupLoginLoading) ...[
                         const CircularProgressIndicator(),
                       ] else ...[
                         MaterialButton(
-                          onPressed: _loginPost,
+                          onPressed: _authPost,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),

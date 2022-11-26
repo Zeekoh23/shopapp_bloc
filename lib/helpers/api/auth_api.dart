@@ -11,7 +11,7 @@ import '../../models/orders.dart';
 import '../../models/cart.dart';
 import '../api_route.dart';
 
-class ApiRead {
+class AuthApi {
   var log = Logger();
   final FlutterSecureStorage storage = const FlutterSecureStorage();
   String? _token;
@@ -87,6 +87,51 @@ class ApiRead {
       message: responseData['message'],
     );
     // }
+  }
+
+  Future<ResponseApi> signup(
+    String email,
+    String password,
+    String passwordConfirm,
+  ) async {
+    final response = await Api.postRequest(
+      ApiRoute.signupUrl,
+      {
+        'email': email,
+        'password': password,
+        'passwordConfirm': passwordConfirm
+      },
+    );
+
+    final responseData = json.decode(response.body);
+    if (response.statusCode != 400 || response.statusCode != 500) {
+      _token = responseData['token'];
+      userId = responseData['data']['user']['_id'];
+      _expiryDate = DateTime.now().add(
+        const Duration(seconds: 6000000),
+      );
+      _email = responseData['data']['user']['email'];
+      final prefs = await SharedPreferences.getInstance();
+      final userData = json.encode(
+        {
+          'userId': userId,
+          'expiryDate': _expiryDate!.toIso8601String(),
+          'email': _email,
+        },
+      );
+      prefs.setString('userData', userData);
+
+      _autoLogout();
+      return ResponseApi(
+        status: true,
+        message: 'Login Successful',
+        data: responseData,
+      );
+    }
+    return ResponseApi(
+      status: false,
+      message: responseData['message'],
+    );
   }
 
   Future<void> persistToken(String token) async {

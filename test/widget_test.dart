@@ -7,12 +7,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shopapp/helpers/api/api_read.dart';
+import 'package:shopapp/helpers/api/auth_api.dart';
 
 import 'package:shopapp/main.dart';
 
 void main() {
-  final authApi = ApiRead();
+  final authApi = AuthApi();
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(MyApp(

@@ -12,7 +12,7 @@ import './screens/orders_screen.dart';
 import './bloc/cart/cart_bloc.dart';
 import './screens/user_products_screen.dart';
 import './screens/edit_add_userproducts_screen.dart';
-import 'helpers/api/api_read.dart';
+import 'helpers/api/auth_api.dart';
 import './models/products.dart';
 import './helpers/api.dart';
 import '../models/orders.dart';
@@ -57,7 +57,7 @@ void main() async {
   final storage = await HydratedStorage.build(
     storageDirectory: await getApplicationDocumentsDirectory(),
   );
-  final authApi = ApiRead();
+  final authApi = AuthApi();
   //BlocObserver = SimpleBlocObserver();
   HydratedBlocOverrides.runZoned(
     () => runApp(
@@ -74,7 +74,7 @@ void main() async {
 }
 
 class MyApp extends StatefulWidget {
-  final ApiRead authApi;
+  final AuthApi authApi;
   const MyApp({Key? key, required this.authApi}) : super(key: key);
   @override
   _MyAppState createState() => _MyAppState();
