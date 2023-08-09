@@ -5,7 +5,7 @@ import 'package:logger/logger.dart';
 import '../api.dart';
 import '../../models/orders.dart';
 import '../../models/cart.dart';
-import '../../models/products.dart';
+
 import '../api_route.dart';
 
 class OrderApi {

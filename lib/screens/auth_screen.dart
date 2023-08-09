@@ -1,11 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../widgets/auth_card.dart';
 
-import '../helpers/api/auth_api.dart';
 import '../bloc/bloc_exports.dart';
 
 enum AuthMode { Signup, Login }
@@ -81,7 +79,7 @@ class AuthScreen extends StatelessWidget {
                         child: Text(
                           'MyShop',
                           style: TextStyle(
-                            color: Theme.of(context).accentColor,
+                            color: Theme.of(context).focusColor,
                             fontSize: 50,
                             fontFamily: 'Anton',
                             fontWeight: FontWeight.normal,

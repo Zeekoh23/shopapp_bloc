@@ -5,10 +5,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:logger/logger.dart';
 
-import '../../models/products.dart';
 import '../api.dart';
-import '../../models/orders.dart';
-import '../../models/cart.dart';
+
 import '../api_route.dart';
 
 class AuthApi {

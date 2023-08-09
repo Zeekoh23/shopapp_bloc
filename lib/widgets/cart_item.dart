@@ -292,7 +292,7 @@ class CartItem1 extends StatelessWidget {
     return IconButton(
       icon: icon,
       onPressed: onPressed,
-      color: Theme.of(context).accentColor,
+      color: Theme.of(context).focusColor,
     );
   }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../models/products.dart';
 import '../widgets/user_products_item.dart';
@@ -7,7 +6,9 @@ import '../widgets/app_drawer.dart';
 import './edit_add_userproducts_screen.dart';
 import '../bloc/bloc_exports.dart';
 
+// ignore: must_be_immutable
 class UserProductsScreen extends StatelessWidget {
+  UserProductsScreen({Key? key}) : super(key: key);
   static const routeName = '/user-products';
 
   String id = '';

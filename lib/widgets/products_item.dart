@@ -10,10 +10,10 @@ import '../screens/cart_screen.dart';
 
 class ProductItem extends StatefulWidget {
   final Product product;
-  ProductItem({Key? key, required this.product}) : super(key: key);
+  const ProductItem({Key? key, required this.product}) : super(key: key);
 
   @override
-  _ProductItemState createState() => _ProductItemState();
+  State<ProductItem> createState() => _ProductItemState();
 }
 
 class _ProductItemState extends State<ProductItem> {
@@ -60,7 +60,7 @@ class _ProductItemState extends State<ProductItem> {
                   ? Icons.favorite
                   : Icons.favorite_border,
             ),
-            color: Theme.of(context).accentColor,
+            color: Theme.of(context).focusColor,
             onPressed: () {
               // product.toggleFavoriteStatus(user.userId, user.token);
             },
@@ -73,7 +73,6 @@ class _ProductItemState extends State<ProductItem> {
           trailing: BlocBuilder<CartBloc, CartStateLoaded>(
             // bloc: cartItem,
             builder: (context, state) {
-              List<CartItem> cart1 = state.addedTask;
               print(i);
               return Row(
                 children: [
@@ -164,7 +163,7 @@ class _ProductItemState extends State<ProductItem> {
                         ),
                       ));
                     },
-                    color: Theme.of(context).accentColor,
+                    color: Theme.of(context).focusColor,
                   ),
                 ],
               );

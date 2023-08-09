@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:path_provider/path_provider.dart';
-import '/helpers/custom_route.dart';
+
 import './bloc/bloc_exports.dart';
 
 import './screens/products_overview_screen.dart';
@@ -11,10 +11,10 @@ import './screens/cart_screen.dart';
 import './screens/orders_screen.dart';
 import './bloc/cart/cart_bloc.dart';
 import './screens/user_products_screen.dart';
-import './screens/edit_add_userproducts_screen.dart';
+
 import 'helpers/api/auth_api.dart';
 import './models/products.dart';
-import './helpers/api.dart';
+
 import '../models/orders.dart';
 
 import './screens/auth_screen.dart';
@@ -54,23 +54,28 @@ class SimpleBlocObserver extends BlocObserver {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final storage = await HydratedStorage.build(
+  //DartPluginRegistrant.ensureInitialized();
+  HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: await getApplicationDocumentsDirectory(),
   );
+  Bloc.observer = SimpleBlocObserver();
   final authApi = AuthApi();
   //BlocObserver = SimpleBlocObserver();
-  HydratedBlocOverrides.runZoned(
-    () => runApp(
-      BlocProvider<AuthBloc>(
-        create: (context) {
-          return AuthBloc(authApi: authApi)..add(AppStarted());
-        },
-        child: MyApp(authApi: authApi),
-      ),
+  /*HydratedBlocOverrides.runZoned(
+    () {
+      return */
+  runApp(
+    BlocProvider<AuthBloc>(
+      create: (context) {
+        return AuthBloc(authApi: authApi)..add(AppStarted());
+      },
+      child: MyApp(authApi: authApi),
     ),
+  );
+  /* },
     blocObserver: SimpleBlocObserver(),
     storage: storage,
-  );
+  );*/
 }
 
 class MyApp extends StatefulWidget {
@@ -146,7 +151,8 @@ class _MyAppState extends State<MyApp> {
           // is not restarted.
           //primaryColor: Colors.purple,
           primarySwatch: Colors.purple,
-          accentColor: Colors.deepOrange,
+          focusColor: Colors.deepOrange,
+          //accentColor: Colors.deepOrange,
           fontFamily: 'Lato',
           /*pageTransitionsTheme: PageTransitionsTheme(builders: {
             TargetPlatform.android: CustomPageTransitionBuilder(),

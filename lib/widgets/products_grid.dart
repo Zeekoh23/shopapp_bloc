@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import './products_item.dart';
 import '../models/products.dart';
@@ -8,7 +7,11 @@ class ProductsGrid extends StatelessWidget {
   final bool showFavs;
   final List<Product> product;
 
-  const ProductsGrid(this.showFavs, this.product);
+  const ProductsGrid({
+    Key? key,
+    required this.showFavs,
+    required this.product,
+  });
 
   @override
   Widget build(BuildContext context) {

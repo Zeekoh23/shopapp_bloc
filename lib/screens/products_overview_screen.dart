@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
+import 'package:badges/badges.dart' as badges;
+
 import '../widgets/app_drawer.dart';
 import '../widgets/products_grid.dart';
 
-import '../widgets/badge.dart';
 import '../bloc/bloc_exports.dart';
-import '../models/cart.dart';
+
 //import '../bloc/product/product_bloc.dart';
 
 import './cart_screen.dart';
@@ -18,13 +19,11 @@ enum FilterOptions {
 
 class ProductsOverviewScreen extends StatefulWidget {
   @override
-  _ProductsOverviewScreenState createState() => _ProductsOverviewScreenState();
+  State<ProductsOverviewScreen> createState() => _ProductsOverviewScreenState();
 }
 
 class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   var _showOnlyFavorites = false;
-  var _isInit = true;
-  var _isLoading = false;
 
   //String id;
 
@@ -64,7 +63,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
       child: BlocBuilder<CartBloc, CartState>(
         builder: (context, state) {
           if (state is CartStateLoaded) {
-            List<CartItem> cart = state.addedTask;
+            // List<CartItem> cart = state.addedTask;
             return Scaffold(
               appBar: AppBar(
                 title: const Text('MyShop'),
@@ -100,9 +99,12 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
                 color: Theme.of(context).accentColor,
               ),
               child: */
-                  Badge(
-                    value: cart.length.toString(),
-                    color: Theme.of(context).accentColor,
+                  badges.Badge(
+                    badgeStyle: badges.BadgeStyle(
+                      badgeColor: Theme.of(context).focusColor,
+                    ),
+                    //value: cart.length.toString(),
+
                     child: IconButton(
                       icon: const Icon(
                         Icons.shopping_cart,
@@ -142,7 +144,10 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
                   if (state is ProductLoadedState) {
                     List<Product> products = state.products;
 
-                    return ProductsGrid(_showOnlyFavorites, products);
+                    return ProductsGrid(
+                      showFavs: _showOnlyFavorites,
+                      product: products,
+                    );
                   }
                   if (state is ProductErrorState) {
                     return Center(

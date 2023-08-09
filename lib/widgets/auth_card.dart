@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
 import '../screens/auth_screen.dart';
 
-import '../models/http_exception.dart';
-import '../models/auth.dart';
-import '../helpers/api/auth_api.dart';
 import '../bloc/bloc_exports.dart';
 
 class AuthCard extends StatefulWidget {
@@ -31,7 +28,6 @@ class _AuthCardState extends State<AuthCard>
     'passwordConfirm': ''
   };
 
-  var _isLoading = false;
   var _emailController = TextEditingController();
   var _passwordController = TextEditingController();
   var _passwordConfirmController = TextEditingController();

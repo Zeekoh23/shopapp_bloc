@@ -1,6 +1,7 @@
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:equatable/equatable.dart';
 
+// ignore: must_be_immutable
 class CartItem extends Equatable {
   final String? id;
   final int? myid;

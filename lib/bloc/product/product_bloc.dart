@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 
-import '../../helpers/api/auth_api.dart';
 import '../bloc_exports.dart';
 import '../../models/products.dart';
 
